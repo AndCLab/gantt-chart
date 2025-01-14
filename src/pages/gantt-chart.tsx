@@ -29,17 +29,15 @@ interface GanttChartProps {
   data: GanttActivity[];
 }
 
-const GanttChart: React.FC<GanttChartProps> = ({ data }) => {
+export const GanttChart = ({ data }: GanttChartProps) => {
   return (
     <ChartContainer>
-      {/* Header Row */}
       <Row>
         {["Activity", "Date Created", "Plan Start", "Plan Duration", "Actual Start", "Actual Duration", "Completion", "Beyond Plan"].map((header) => (
           <Cell key={header} width="150px">{header}</Cell>
         ))}
       </Row>
 
-      {/* Data Rows */}
       {data.map((activity) => (
         <Row key={activity.id}>
           <Cell width="150px">{activity.activity}</Cell>
@@ -56,4 +54,3 @@ const GanttChart: React.FC<GanttChartProps> = ({ data }) => {
   );
 };
 
-export default GanttChart;
