@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { GanttActivity } from "./schema/schema.tsx";
+import { ActivityForm } from "./components/forms/activity-form.tsx";
+import { GanttChart } from "./pages/gantt-chart.tsx";
+import { CellComponent } from "./components/tables/cell-component.tsx";
 
-function App() {
+const App: React.FC = () => {
+  const [data, setData] = useState<GanttActivity[]>([]);
+
+  const handleAddActivity = (activity: GanttActivity) => {
+    const updatedData = [...data, activity];
+    setData(updatedData);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="w-full p-8">
+        <h1 className="font-bold text-2xl">Gantt Chart</h1>
+        <div className="flex p-4 items-center justify-center">
+          <ActivityForm onAddActivity={handleAddActivity} />
+        </div>
+      </div>
+
+      <div className="flex w-full gap-4">
+        <GanttChart data={data} />
+        <CellComponent data={data}/>
+      </div>
+
     </div>
   );
-}
+};
 
 export default App;
